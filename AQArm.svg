@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+<metadata>
+<vectornator:setting key="IsTimeLapseWatermarkDisabled" value="false"/>
+<vectornator:setting key="UndoHistoryDisabled" value="true"/>
+<vectornator:setting key="VNDimensionsVisible" value="true"/>
+<vectornator:setting key="VNSnapToGuides" value="true"/>
+<vectornator:setting key="WDCMYKEnabledKey" value="false"/>
+<vectornator:setting key="WDDisplayWhiteBackground" value="false"/>
+<vectornator:setting key="WDDynamicGuides" value="false"/>
+<vectornator:setting key="WDGuidesVisible" value="true"/>
+<vectornator:setting key="WDIsolateActiveLayer" value="false"/>
+<vectornator:setting key="WDOutlineMode" value="false"/>
+<vectornator:setting key="WDRulersVisible" value="true"/>
+<vectornator:setting key="WDSnapToEdges" value="false"/>
+<vectornator:setting key="WDSnapToGrid" value="false"/>
+<vectornator:setting key="WDSnapToPoints" value="false"/>
+<vectornator:setting key="WDUnits" value="Pixels"/>
+</metadata>
+<defs>
+<clipPath id="TextBounds">
+<rect height="694.453" transform="matrix(1 -0 -0 1 -85.0323 -191.304)" width="852.945" x="85.0323" y="191.304"/>
+</clipPath>
+<clipPath id="TextBounds_2">
+<rect height="149.378" transform="matrix(1 -0 -0 1 0.876609 -557.275)" width="1026.32" x="-0.876609" y="557.275"/>
+</clipPath>
+<clipPath id="TextBounds_3">
+<rect height="433.341" transform="matrix(1 -0 -0 1 -639.109 -237.559)" width="715.31" x="639.109" y="237.559"/>
+</clipPath>
+</defs>
+<g id="Layer-1" vectornator:layerName="Layer 1">
+<text clip-path="url(#TextBounds)" fill="#58008f" font-family="AdelleSansDevanagari-Thin" font-size="287" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 85.0323 191.304)" vectornator:text="AQA" vectornator:width="824.245" x="0" y="0">
+<tspan textLength="575.435" x="0" y="382">AQA</tspan>
+</text>
+<text clip-path="url(#TextBounds_2)" fill="#58008f" font-family="AdelleSansDevanagari-Thin" font-size="100" opacity="1" stroke="none" text-anchor="middle" transform="matrix(1 0 0 1 -0.876609 557.275)" vectornator:text="Unofficial&#x20;project" vectornator:width="1016.32" x="0" y="0">
+<tspan textLength="761.5" x="513.162" y="133">Unofficial project</tspan>
+</text>
+<path d="M802.164 471.561L599.222 351.948L802.164 471.561Z" fill="#58008f" fill-rule="evenodd" opacity="1" stroke="none"/>
+<text clip-path="url(#TextBounds_3)" fill="#ff0000" font-family="AdelleSansDevanagari-Thin" font-size="200" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 639.109 237.559)" vectornator:text="RM" vectornator:width="695.31" x="0" y="0">
+<tspan textLength="304.4" x="0" y="266">RM</tspan>
+</text>
+</g>
+</svg>
