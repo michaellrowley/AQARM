@@ -1,7 +1,7 @@
-<img src="https://i.ibb.co/y8LF3Ym/AQArm.png" style="background-color: white;vertical-align: center;width: 15%;float: left;top:0;margin-top: 0;"/> <img src="https://i.ibb.co/ggDLMJd/Screenshot-2022-03-19-at-21-28-07.png" style="margin-top:-40px;margin-right: -40px;vertical-align: center;width: 35%;float: right;"/>
+<center><img src="AQArm.png" style="width: 15%;"/></center>
 
 ## What/Why
-A-Level computer science covers a variety of subjects, one of which is some basic ARM programming - the ARM instruction set that I need to know for exams is a reduced version released by AQA (the examination board) but no interpreter is provided.
+A-Level computer science covers a variety of topics, one of which involves some basic low-level programming - the ARM instruction set that needs to be known for exams is a reduced version released by AQA (the examination board) but no interpreter is provided.
 There are a few other programs that achieve similar effects to this (namely two versions of interpreters from Peter Higginson that can be found [here](https://www.peterhigginson.co.uk/AQA/) & [here](https://www.peterhigginson.co.uk/ARMlite/) and another that is available [here](https://github.com/OliCallaghan/AQA-Assembler)). The main issue I've had with these tools is that some (not all) of them have excessive UIs that show information that isn't needed or contextually relevant for the A-Level syllabus and some also don't follow the AQA ARM instruction set accurately (additional instructions are added that would otherwise be unavailable in an exam).
 
 ### How
@@ -14,3 +14,5 @@ The right half of the window shows the registers after execution (0 through 12) 
 
 ### Examples
 [Question 7.1](https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2020/november/AQA-75162-QP-NOV20.PDF) in the November 2020 AS paper involves implementing a caesar cipher, all three [solutions](https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2020/november/AQA-75162-W-MS-NOV20.PDF) are able to be run without modification using AQArm.
+
+<img src="./example-ss.png" style="width: 35%;"/>
