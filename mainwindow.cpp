@@ -371,7 +371,7 @@ struct Instruction {
 }
 
 void MainWindow::RunCode() {
-    const QString codeString = this->ui->codeInputTextEdit->toPlainText();
+    const QString codeString = this->ui->codeInputTextEdit->toPlainText().replace(":", ":\n");
     QStringList instructionStrList = codeString.split("\n");
     applicationMemory = preApplicationMemory;
     for (size_t i = 0; i < instructionStrList.size(); i++) {
