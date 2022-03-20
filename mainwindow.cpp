@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <map>
 #include <QString>
-#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -321,8 +320,12 @@ struct Instruction {
     QString chunkBuffer = "";
     for (size_t characterIndex = 0; characterIndex < instruction.length(); characterIndex++) {
         QChar iterativeCharacter = instruction[characterIndex];
-        if (iterativeCharacter == ' ' || iterativeCharacter == ':' || iterativeCharacter == ';') {
+        if (iterativeCharacter == ' ' || iterativeCharacter == ':') {
             processChunk:
+            if (chunkBuffer.isEmpty()) {
+//                chunkBuffer.clear();
+                continue;
+            }
             if (iterativeCharacter == ':') {
                 output.opcodeIndex = 0;
                 return true;
@@ -341,10 +344,6 @@ struct Instruction {
             }
             else {
                 output.operands.push_back(chunkBuffer);
-            }
-            if (iterativeCharacter == ';') {
-                characterIndex++;
-                while (characterIndex < instruction.length() && instruction[characterIndex++] != '\n') { }
             }
             chunkBuffer.clear();
             continue;
@@ -368,46 +367,44 @@ struct Instruction {
             }
         }
     }
-    qInfo((QString::number(output.operands.size()) + " : " + QString::number(opcodeList[output.opcodeIndex - 1].operandCount))
-            .toStdString().c_str());
     return output.operands.size() == opcodeList[output.opcodeIndex - 1].operandCount;
 }
 
 void MainWindow::RunCode() {
     const QString codeString = this->ui->codeInputTextEdit->toPlainText();
-    const QStringList instructionStrList = codeString.split("\n");
+    QStringList instructionStrList = codeString.split("\n");
     applicationMemory = preApplicationMemory;
+    for (size_t i = 0; i < instructionStrList.size(); i++) {
+        instructionStrList[i] = instructionStrList[i].trimmed();
+        const qsizetype commentStartIndex = instructionStrList[i].indexOf(';');
+        if (commentStartIndex != -1) {
+            instructionStrList[i] = instructionStrList[i].mid(0, commentStartIndex);
+        }
+        if (instructionStrList[i].isEmpty()) {
+            instructionStrList.removeAt(i);
+            i--; // This index has a new instruction, re-evaluate it.
+        }
+    }
     for (size_t currentInstructionIndex = 0; currentInstructionIndex < instructionStrList.size(); currentInstructionIndex++) {
         const QString& iterativeInstructionStr = instructionStrList[currentInstructionIndex];
         Instruction iterativeInstructionRaw = {NULL};
         if (!expandInstructionStr(iterativeInstructionStr, iterativeInstructionRaw)) {
-            QMessageBox k;
-            k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
-            k.exec();
+            // TODO: Log error.
             break;
         }
         if (iterativeInstructionRaw.opcodeIndex == 0) {
             continue;
         }
         const Opcode& instructionOpcode = opcodeList[iterativeInstructionRaw.opcodeIndex - 1];
-        qInfo(instructionOpcode.mnemonic.toStdString().c_str());
         if (instructionOpcode.mnemonic.startsWith("B")) {
             // B, BEQ, BLT, BGT, BNE
-            if (!((bool(*)(const QStringList&, size_t*, const QStringList&))instructionOpcode.handlerFn)(iterativeInstructionRaw.operands, &currentInstructionIndex, instructionStrList)) {
-                QMessageBox k;
-                k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
-                k.exec();
-            }
+            ((bool(*)(const QStringList&, size_t*, const QStringList&))instructionOpcode.handlerFn)(iterativeInstructionRaw.operands, &currentInstructionIndex, instructionStrList);
         }
-        else if (instructionOpcode.mnemonic.startsWith("HALT")) {
+        else if (instructionOpcode.mnemonic == "HALT") {
             break;
         }
         else {
-            if (!instructionOpcode.handlerFn(iterativeInstructionRaw.operands)) {
-                QMessageBox k;
-                k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
-                k.exec();
-            }
+            instructionOpcode.handlerFn(iterativeInstructionRaw.operands);
         }
         // TODO: Only update UI if something meaningful has changed.
         ui->registerListView->clear();
