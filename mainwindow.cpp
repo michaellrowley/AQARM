@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <map>
 #include <QString>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -305,7 +306,8 @@ std::vector<Opcode> opcodeList = {
          }
          registerValues[destRegisterIndex] = registerValues[firstRegisterIndex] >> universalGetValue(operands[2]);
          return true;
-     }}
+     }},
+    {.mnemonic = "HALT", .operandCount = 0, .handlerFn = nullptr}
 };
 
 struct Instruction {
@@ -366,6 +368,8 @@ struct Instruction {
             }
         }
     }
+    qInfo((QString::number(output.operands.size()) + " : " + QString::number(opcodeList[output.opcodeIndex - 1].operandCount))
+            .toStdString().c_str());
     return output.operands.size() == opcodeList[output.opcodeIndex - 1].operandCount;
 }
 
@@ -377,7 +381,9 @@ void MainWindow::RunCode() {
         const QString& iterativeInstructionStr = instructionStrList[currentInstructionIndex];
         Instruction iterativeInstructionRaw = {NULL};
         if (!expandInstructionStr(iterativeInstructionStr, iterativeInstructionRaw)) {
-            // TODO: Log error.
+            QMessageBox k;
+            k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
+            k.exec();
             break;
         }
         if (iterativeInstructionRaw.opcodeIndex == 0) {
@@ -387,10 +393,21 @@ void MainWindow::RunCode() {
         qInfo(instructionOpcode.mnemonic.toStdString().c_str());
         if (instructionOpcode.mnemonic.startsWith("B")) {
             // B, BEQ, BLT, BGT, BNE
-            ((bool(*)(const QStringList&, size_t*, const QStringList&))instructionOpcode.handlerFn)(iterativeInstructionRaw.operands, &currentInstructionIndex, instructionStrList);
+            if (!((bool(*)(const QStringList&, size_t*, const QStringList&))instructionOpcode.handlerFn)(iterativeInstructionRaw.operands, &currentInstructionIndex, instructionStrList)) {
+                QMessageBox k;
+                k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
+                k.exec();
+            }
+        }
+        else if (instructionOpcode.mnemonic.startsWith("HALT")) {
+            break;
         }
         else {
-            instructionOpcode.handlerFn(iterativeInstructionRaw.operands);
+            if (!instructionOpcode.handlerFn(iterativeInstructionRaw.operands)) {
+                QMessageBox k;
+                k.setText(QString::number(__LINE__) + ": Unable to complete line #" + QString::number(currentInstructionIndex));
+                k.exec();
+            }
         }
         // TODO: Only update UI if something meaningful has changed.
         ui->registerListView->clear();
