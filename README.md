@@ -16,3 +16,6 @@ The right half of the window shows the registers after execution (0 through 12) 
 [Question 7.1](https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2020/november/AQA-75162-QP-NOV20.PDF) in the November 2020 AS paper involves implementing a caesar cipher, all three [solutions](https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2020/november/AQA-75162-W-MS-NOV20.PDF) are able to be run without modification using AQArm.
 
 <img src="./example-ss.png" style="width: 35%;"/>
+
+### Compiling
+This project was developed using Qt's framework for UI development. In order to compile the project you should be able to open the ``.pro`` file in [Qt Creator](https://www.qt.io/product/development-tools) or by loading the full project as a directory via the Qt Creator user-interface.
